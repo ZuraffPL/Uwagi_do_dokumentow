@@ -1,0 +1,111 @@
+<UserControl x:Class="UwagiDoDokumentow.App.Views.NotesListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="900">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Filtry -->
+        <WrapPanel Grid.Row="0" Margin="0,0,0,10">
+            <DatePicker Width="130" Margin="0,0,8,0" SelectedDate="{Binding DateFromFilter}" />
+            <TextBlock Text="—" VerticalAlignment="Center" Margin="0,0,8,0" />
+            <DatePicker Width="130" Margin="0,0,8,0" SelectedDate="{Binding DateToFilter}" />
+            <CheckBox Content="Tylko z załącznikami" VerticalAlignment="Center" Margin="0,0,8,0"
+                      IsChecked="{Binding OnlyWithAttachmentsFilter}" />
+            <CheckBox Content="Pokaż zarchiwizowane" VerticalAlignment="Center" Margin="0,0,8,0"
+                      IsChecked="{Binding ShowArchivedFilter}" />
+            <ComboBox Width="130" Margin="0,0,8,0"
+                      ItemsSource="{Binding DocumentTypes}"
+                      SelectedValuePath="Symbol"
+                      SelectedValue="{Binding SymbolFilter}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Symbol, Converter={StaticResource EmptySymbolToAllTextConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBox Width="200" Margin="0,0,8,0" VerticalContentAlignment="Center"
+                     Text="{Binding PhraseFilter, UpdateSourceTrigger=PropertyChanged}"
+                     Tag="Szukaj w tytule/treści...">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding SearchCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Content="Szukaj" Command="{Binding SearchCommand}" Padding="14,4" />
+        </WrapPanel>
+
+
+        <!-- Akcje -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Dodaj" Command="{Binding AddCommand}" Margin="0,0,8,0"
+                    Visibility="{Binding CanAdd, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <Button Content="Edytuj" Command="{Binding EditCommand}" Margin="0,0,8,0"
+                    Visibility="{Binding CanEdit, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <Button Content="Usuń" Command="{Binding DeleteCommand}" Margin="0,0,8,0"
+                    Visibility="{Binding CanDelete, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <Button Content="Szczegóły" Command="{Binding ShowDetailsCommand}" Margin="0,0,8,0" />
+            <Button Content="Drukuj / PDF" Command="{Binding PrintCommand}" />
+        </StackPanel>
+
+        <DataGrid x:Name="NotesGrid" Grid.Row="2" ItemsSource="{Binding Notes}" SelectedItem="{Binding SelectedNote}"
+                  AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                  GridLinesVisibility="Horizontal" HeadersVisibility="Column"
+                  SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserSortColumns="True" CanUserResizeColumns="True"
+                  MouseDoubleClick="NotesGrid_MouseDoubleClick"
+                  PreviewMouseRightButtonDown="NotesGrid_PreviewMouseRightButtonDown">
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Return" Command="{Binding ShowDetailsCommand}" />
+                <KeyBinding Key="A" Command="{Binding ToggleArchiveCommand}" />
+            </DataGrid.InputBindings>
+            <DataGrid.ContextMenu>
+                <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                    <MenuItem Header="Archiwizuj" Command="{Binding ToggleArchiveCommand}"
+                              Visibility="{Binding SelectedNote.IsArchived, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
+                    <MenuItem Header="Przywróć z archiwum" Command="{Binding ToggleArchiveCommand}"
+                              Visibility="{Binding SelectedNote.IsArchived, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Separator />
+                    <MenuItem Header="Pokaż historię zmian" Command="{Binding ShowHistoryCommand}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding WasModified}" Value="True">
+                            <Setter Property="Background" Value="#FFF3CD" />
+                            <Setter Property="ToolTip" Value="Ta uwaga była edytowana po utworzeniu — zobacz PPM &gt; Pokaż historię zmian" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Data dok." Binding="{Binding DocumentDate, StringFormat=yyyy-MM-dd}" Width="95" />
+                <DataGridTextColumn Header="Symbol" Binding="{Binding DocumentSymbol}" Width="65" />
+                <DataGridTextColumn Header="Numer" Binding="{Binding DocumentNumber}" Width="90" />
+                <DataGridTextColumn Header="Zlecił" Binding="{Binding OrderedBy}" Width="200" />
+                <DataGridTextColumn Header="Tytuł" Binding="{Binding Title}" Width="*" />
+                <DataGridTextColumn Header="Tagi" Binding="{Binding Tags}" Width="300" />
+                <DataGridTextColumn Header="Załączniki" Binding="{Binding AttachmentsCount}" Width="80" />
+                <DataGridTextColumn Header="Autor" Binding="{Binding CreatedByDisplayName}" Width="130" />
+                <DataGridTemplateColumn Header="Archiwum" Width="85">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"
+                                      IsChecked="{Binding IsArchived, Mode=OneWay}"
+                                      IsEnabled="{Binding DataContext.CanEdit, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                      Command="{Binding DataContext.ToggleArchiveCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Ostatnia zmiana" Binding="{Binding UpdatedAt, StringFormat=yyyy-MM-dd HH:mm}" Width="140" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

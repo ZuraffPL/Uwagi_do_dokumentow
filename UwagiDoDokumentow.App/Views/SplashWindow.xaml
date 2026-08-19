@@ -1,0 +1,50 @@
+<Window x:Class="UwagiDoDokumentow.App.Views.SplashWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Uwagi do dokumentów"
+        Width="460" Height="300"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ShowInTaskbar="True"
+        Topmost="False">
+    <Border Background="#1F3F5F" CornerRadius="10" BorderBrush="#12283F" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="20" ShadowDepth="0" Opacity="0.4" />
+        </Border.Effect>
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                <TextBlock Text="Uwagi do dokumentów"
+                           FontSize="26" FontWeight="Bold" Foreground="White"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="Kontekst dla dokumentów obiegających w firmie"
+                           FontSize="12" Foreground="#C7D6E5"
+                           HorizontalAlignment="Center" Margin="0,6,0,0" />
+            </StackPanel>
+
+            <ProgressBar Grid.Row="1" IsIndeterminate="True" Height="4" Margin="0,20,0,10"
+                         Background="#2F5D8A" Foreground="#78B4E0" BorderThickness="0" />
+
+            <TextBlock Grid.Row="2" Text="{Binding StatusText}" Foreground="#C7D6E5"
+                       FontSize="12" HorizontalAlignment="Center" />
+
+            <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <TextBlock Text="{Binding VersionText}" Foreground="#7C93A8"
+                           FontSize="10" HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding AuthorText}" Foreground="#7C93A8"
+                           FontSize="10" HorizontalAlignment="Center" Margin="0,2,0,0" />
+                <TextBlock Text="{Binding TechStackText}" Foreground="#7C93A8"
+                           FontSize="10" HorizontalAlignment="Center" Margin="0,2,0,0"
+                           TextWrapping="Wrap" TextAlignment="Center" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,32 @@
+<Window x:Class="UwagiDoDokumentow.App.Views.NoteHistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Historia zmian"
+        Width="700" Height="480"
+        WindowStartupLocation="CenterOwner"
+        Background="#F4F6F8">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{Binding NoteLabel}" FontSize="16" FontWeight="Bold"
+                   Foreground="#1F3F5F" Margin="0,0,0,10" />
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Entries}" AutoGenerateColumns="False" IsReadOnly="True"
+                  CanUserAddRows="False" GridLinesVisibility="Horizontal">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Data" Binding="{Binding CreatedAt, StringFormat=yyyy-MM-dd HH:mm}" Width="140" />
+                <DataGridTextColumn Header="Użytkownik" Binding="{Binding User.DisplayName}" Width="150" />
+                <DataGridTextColumn Header="Akcja" Binding="{Binding ActionType}" Width="100" />
+                <DataGridTextColumn Header="Szczegóły" Binding="{Binding Details}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="2" Content="Zamknij" Width="100" Padding="10,6"
+                HorizontalAlignment="Right" Margin="0,16,0,0"
+                IsCancel="True" IsDefault="True" Click="CloseButton_Click" />
+    </Grid>
+</Window>

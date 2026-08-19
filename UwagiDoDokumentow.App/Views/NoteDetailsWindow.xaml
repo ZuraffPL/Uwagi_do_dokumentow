@@ -1,0 +1,77 @@
+<Window x:Class="UwagiDoDokumentow.App.Views.NoteDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Szczegóły uwagi do dokumentu"
+        Width="600" Height="600"
+        WindowStartupLocation="CenterOwner"
+        Background="#F4F6F8">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" DataContext="{Binding Note}">
+            <StackPanel>
+                <TextBlock Text="{Binding Title}" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" />
+                <TextBlock Margin="0,0,0,4">
+                    <Run Text="Dokument: " FontWeight="SemiBold" />
+                    <Run Text="{Binding DocumentSymbol}" />
+                    <Run Text=" " /><Run Text="{Binding DocumentNumber}" />
+                </TextBlock>
+                <TextBlock Margin="0,0,0,4">
+                    <Run Text="Data dokumentu: " FontWeight="SemiBold" />
+                    <Run Text="{Binding DocumentDate, StringFormat=yyyy-MM-dd}" />
+                </TextBlock>
+                <TextBlock Margin="0,0,0,10">
+                    <Run Text="Zlecił: " FontWeight="SemiBold" />
+                    <Run Text="{Binding OrderedBy}" />
+                </TextBlock>
+
+                <TextBlock Text="Treść:" FontWeight="SemiBold" Margin="0,0,0,4" />
+                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Margin="0,0,0,10" />
+
+                <TextBlock Margin="0,0,0,10">
+                    <Run Text="Tagi: " FontWeight="SemiBold" />
+                    <Run Text="{Binding Tags}" />
+                </TextBlock>
+
+                <TextBlock Text="Załączniki:" FontWeight="SemiBold" Margin="0,0,0,4" />
+                <ItemsControl ItemsSource="{Binding Attachments}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#DDDDDD" BorderThickness="0,0,0,1" Padding="0,6" Margin="0,0,0,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="40" Height="40" Margin="0,0,10,0"
+                                           Stretch="UniformToFill" Cursor="Hand"
+                                           Source="{Binding Converter={StaticResource AttachmentThumbnailConverter}}"
+                                           Visibility="{Binding Extension, Converter={StaticResource ImageExtensionToVisibilityConverter}}"
+                                           MouseLeftButtonUp="AttachmentThumbnail_MouseLeftButtonUp" />
+                                    <TextBlock Text="{Binding OriginalFileName}" VerticalAlignment="Center" />
+                                    <Button Content="Podgląd / otwórz" Padding="10,3" Margin="12,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Command="{Binding DataContext.OpenAttachmentCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Margin="0,16,0,0" FontSize="10" Foreground="Gray">
+                    <Run Text="Utworzono: " /><Run Text="{Binding CreatedAt, StringFormat=yyyy-MM-dd HH:mm}" />
+                    <Run Text=" przez " /><Run Text="{Binding CreatedByDisplayName}" />
+                </TextBlock>
+                <TextBlock FontSize="10" Foreground="Gray">
+                    <Run Text="Ostatnia zmiana: " /><Run Text="{Binding UpdatedAt, StringFormat=yyyy-MM-dd HH:mm}" />
+                    <Run Text=" przez " /><Run Text="{Binding UpdatedByDisplayName}" />
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+            <Button Content="Drukuj / PDF" Command="{Binding PrintCommand}" Padding="14,6" Margin="0,0,8,0" />
+            <Button Content="Zamknij" Padding="14,6" Click="CloseButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

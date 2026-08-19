@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="#2F5D8A" />
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="#1F3F5F" />
+    <SolidColorBrush x:Key="BackgroundBrush" Color="#F4F6F8" />
+
+    <Style TargetType="Button" x:Key="PrimaryButton">
+        <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="12,6" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource PrimaryDarkBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" BasedOn="{StaticResource PrimaryButton}" />
+
+    <!--
+        Domyślny styl MenuItem: pozycje najwyższego poziomu (na ciemnym pasku menu) mają biały
+        tekst, ale pozycje w rozwiniętym podmenu (na jasnym tle popupu) muszą mieć ciemny tekst
+        — inaczej Foreground="White" ustawiony na nagłówku dziedziczyłby w dół i tekst podmenu
+        byłby biały na białym (niewidoczny).
+    -->
+    <Style TargetType="MenuItem">
+        <Style.Triggers>
+            <Trigger Property="Role" Value="TopLevelHeader">
+                <Setter Property="Foreground" Value="White" />
+            </Trigger>
+            <Trigger Property="Role" Value="TopLevelItem">
+                <Setter Property="Foreground" Value="White" />
+            </Trigger>
+            <Trigger Property="Role" Value="SubmenuHeader">
+                <Setter Property="Foreground" Value="#1F2A33" />
+            </Trigger>
+            <Trigger Property="Role" Value="SubmenuItem">
+                <Setter Property="Foreground" Value="#1F2A33" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

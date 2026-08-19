@@ -1,0 +1,104 @@
+<Window x:Class="UwagiDoDokumentow.App.Views.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Instrukcja obsługi"
+        Width="720" Height="640"
+        WindowStartupLocation="CenterOwner"
+        Background="#F4F6F8">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Instrukcja obsługi — Uwagi do dokumentów"
+                           FontSize="20" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,0,0,12" />
+
+                <TextBlock Text="1. Logowanie" FontSize="15" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,10,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="#1F2A33">
+                    Po uruchomieniu aplikacji pojawia się ekran logowania. Podaj nazwę użytkownika i hasło
+                    otrzymane od administratora. Konto administratora tworzone przy pierwszym uruchomieniu
+                    aplikacji ma login "admin" — hasło zostaje wyświetlone jednorazowo i powinno zostać
+                    natychmiast zmienione w panelu administracyjnym.
+                </TextBlock>
+
+                <TextBlock Text="2. Lista uwag i filtrowanie" FontSize="15" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="#1F2A33">
+                    Główne okno aplikacji pokazuje listę uwag do dokumentów. Nad listą znajdują się filtry:
+                    symbol dokumentu, zakres dat wystawienia, tylko rekordy z załącznikami, pokazywanie
+                    zarchiwizowanych oraz wyszukiwanie frazy w tytule/treści (przycisk "Szukaj" lub klawisz
+                    Enter w polu wyszukiwania). Szerokość każdej kolumny można dowolnie zmienić, przeciągając
+                    jej krawędź w nagłówku.
+                </TextBlock>
+
+                <TextBlock Text="3. Dodawanie i edycja uwag" FontSize="15" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="#1F2A33">
+                    Przycisk "Dodaj" otwiera formularz nowej uwagi: data i symbol dokumentu, numer, osoba
+                    zlecająca, tytuł oraz treść opisująca okoliczności powstania dokumentu. Przycisk "Edytuj"
+                    pozwala zmienić dane istniejącej uwagi (widoczny tylko dla użytkowników z odpowiednim
+                    uprawnieniem). Podwójne kliknięcie wiersza lub klawisz Enter otwiera szczegóły uwagi.
+                </TextBlock>
+
+                <TextBlock Text="4. Załączniki" FontSize="15" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="#1F2A33">
+                    Do każdej uwagi można podpiąć dowody: skany, zdjęcia, maile, dokumenty i archiwa
+                    (dozwolone rozszerzenia: jpg, jpeg, png, webp, pdf, txt, rtf, doc, docx, odt, ods, odp,
+                    zip, rar). Załączniki dodaje się i podgląda z poziomu edycji lub szczegółów uwagi.
+                    Kliknięcie załącznika otwiera go w domyślnej aplikacji systemowej.
+                </TextBlock>
+
+                <TextBlock Text="5. Archiwizacja i usuwanie" FontSize="15" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="#1F2A33">
+                    Uwagi nieaktualne można oznaczyć jako zarchiwizowane zamiast usuwać — pozostają widoczne
+                    po zaznaczeniu filtra "Pokaż zarchiwizowane". Archiwizować (i przywracać) można na
+                    trzy sposoby: kliknięcie checkboxa w kolumnie "Archiwum" na liście, prawy przycisk
+                    myszy na wierszu i wybór "Archiwizuj"/"Przywróć z archiwum", albo zaznaczenie wiersza
+                    i wciśnięcie klawisza "A". Usuwanie rekordów (przycisk "Usuń") jest dostępne tylko dla
+                    użytkowników z uprawnieniem do usuwania.
+                </TextBlock>
+
+                <TextBlock Text="6. Historia zmian i oznaczenie edytowanych uwag" FontSize="15" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="#1F2A33">
+                    Wiersze uwag, które były edytowane po utworzeniu, są podświetlone na żółto na liście —
+                    to sygnał, że warto sprawdzić, co się zmieniło. Prawy przycisk myszy na wierszu i wybór
+                    "Pokaż historię zmian" otwiera okno z pełną historią: kto, kiedy i co zmienił w danym
+                    rekordzie.
+                </TextBlock>
+
+                <TextBlock Text="7. Drukowanie i eksport do PDF" FontSize="15" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="#1F2A33">
+                    Przycisk "Drukuj / PDF" generuje dokument PDF dla wybranej uwagi (pełna treść wraz z listą
+                    załączników), który można podejrzeć, wydrukować lub zapisać na dysku.
+                </TextBlock>
+
+                <TextBlock Text="8. Panel administracyjny" FontSize="15" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="#1F2A33">
+                    Dostępny wyłącznie dla administratorów (menu "Administracja"):
+                    • Użytkownicy — dodawanie kont, nadawanie uprawnień (dodawanie/edycja/usuwanie),
+                      dezaktywacja i usuwanie kont, reset hasła.
+                    • Symbole dokumentów — zarządzanie słownikiem symboli (FO, PZ, WZ itd.).
+                    • Log aktywności — pełna historia działań użytkowników w aplikacji (logowania,
+                      tworzenie/edycja/usuwanie uwag, druk, eksport/import). Przy edycji uwagi kolumna
+                      "Szczegóły" pokazuje dokładnie, co zostało zmienione (np. "Zmieniono: treść, kto
+                      zlecił").
+                    • Eksportuj/importuj bazę danych — kopia zapasowa całej bazy i załączników do pliku ZIP
+                      oraz przywracanie jej z takiego pliku (import wymaga zamknięcia aplikacji przez
+                      wszystkich użytkowników).
+                </TextBlock>
+
+                <TextBlock Text="9. Uprawnienia" FontSize="15" FontWeight="Bold" Foreground="#1F3F5F" Margin="0,14,0,4" />
+                <TextBlock TextWrapping="Wrap" Foreground="#1F2A33">
+                    Widoczność i dostępność przycisków (Dodaj/Edytuj/Usuń, menu Administracja) zależy od
+                    uprawnień przypisanych do zalogowanego konta. Jeśli danej funkcji brakuje na ekranie,
+                    skontaktuj się z administratorem aplikacji o nadanie odpowiedniego uprawnienia.
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Grid.Row="1" Content="Zamknij" Width="100" Padding="10,6"
+                HorizontalAlignment="Right" Margin="0,16,0,0"
+                IsCancel="True" IsDefault="True" Click="CloseButton_Click" />
+    </Grid>
+</Window>

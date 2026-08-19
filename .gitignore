@@ -1,0 +1,40 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+publish/
+
+# Zbudowane instalatory
+*.exe
+!Installer/**/*.exe
+
+# Dane uzytkownika (baza, zalaczniki, logi) - nigdy nie commitowac
+Data/
+data/
+*.db
+*.db-shm
+*.db-wal
+debug_log.txt
+
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+**/packages/*
+
+# Wyniki testow
+[Tt]est[Rr]esult*/
+
+# Pliki tymczasowe systemu
+Thumbs.db
+desktop.ini

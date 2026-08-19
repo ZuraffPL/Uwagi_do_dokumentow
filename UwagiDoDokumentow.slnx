@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="UwagiDoDokumentow.App/UwagiDoDokumentow.App.csproj" />
+  <Project Path="UwagiDoDokumentow.Application/UwagiDoDokumentow.Application.csproj" />
+  <Project Path="UwagiDoDokumentow.Domain/UwagiDoDokumentow.Domain.csproj" />
+  <Project Path="UwagiDoDokumentow.Infrastructure/UwagiDoDokumentow.Infrastructure.csproj" />
+</Solution>

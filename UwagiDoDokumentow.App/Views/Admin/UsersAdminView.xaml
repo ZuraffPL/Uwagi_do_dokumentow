@@ -1,0 +1,75 @@
+<Window x:Class="UwagiDoDokumentow.App.Views.Admin.UsersAdminView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Administracja — Użytkownicy"
+        Width="820" Height="560"
+        WindowStartupLocation="CenterOwner"
+        Background="#F4F6F8">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <DataGrid Grid.Row="0" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}"
+                      AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                      GridLinesVisibility="Horizontal" SelectionMode="Single" SelectionUnit="FullRow">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Login" Binding="{Binding Username}" Width="120" />
+                    <DataGridTextColumn Header="Nazwa" Binding="{Binding DisplayName}" Width="150" />
+                    <DataGridCheckBoxColumn Header="Admin" Binding="{Binding IsAdmin}" Width="60" />
+                    <DataGridCheckBoxColumn Header="Dodaj" Binding="{Binding CanAdd}" Width="60" />
+                    <DataGridCheckBoxColumn Header="Edytuj" Binding="{Binding CanEdit}" Width="60" />
+                    <DataGridCheckBoxColumn Header="Usuń" Binding="{Binding CanDelete}" Width="60" />
+                    <DataGridCheckBoxColumn Header="Aktywny" Binding="{Binding IsActive}" Width="70" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                <TextBlock Text="Nowy użytkownik" FontWeight="Bold" Margin="0,0,0,6" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,6" VerticalAlignment="Bottom">
+                    <StackPanel Margin="0,0,6,0">
+                        <TextBlock Text="Login" FontSize="11" Foreground="#5A6B78" />
+                        <TextBox Width="120" Padding="4" Text="{Binding NewUsername, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,6,0">
+                        <TextBlock Text="Nazwa wyświetlana" FontSize="11" Foreground="#5A6B78" />
+                        <TextBox Width="150" Padding="4" Text="{Binding NewDisplayName, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                    <StackPanel Margin="0,0,6,0">
+                        <TextBlock Text="Hasło" FontSize="11" Foreground="#5A6B78" />
+                        <PasswordBox x:Name="NewPasswordBox" Width="120" Padding="4" />
+                    </StackPanel>
+                    <Button Content="Dodaj" Padding="10,4" Click="AddUserButton_Click" />
+                </StackPanel>
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Column="2" DataContext="{Binding SelectedUser}">
+            <TextBlock Text="Uprawnienia wybranego użytkownika" FontWeight="Bold" Margin="0,0,0,10" />
+            <CheckBox Content="Administrator" IsChecked="{Binding IsAdmin}" Margin="0,0,0,8" />
+            <CheckBox Content="Może dodawać" IsChecked="{Binding CanAdd}" Margin="0,0,0,8" />
+            <CheckBox Content="Może edytować" IsChecked="{Binding CanEdit}" Margin="0,0,0,8" />
+            <CheckBox Content="Może usuwać" IsChecked="{Binding CanDelete}" Margin="0,0,0,8" />
+            <Button Content="Zapisz uprawnienia" Padding="10,4" Margin="0,10,0,0"
+                    Command="{Binding DataContext.SavePermissionsCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+            <Button Content="Aktywuj/dezaktywuj konto" Padding="10,4" Margin="0,8,0,0"
+                    Command="{Binding DataContext.ToggleActiveCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+            <Button Content="Usuń użytkownika" Padding="10,4" Margin="0,8,0,0" Background="#B23B3B" Foreground="White"
+                    Command="{Binding DataContext.DeleteUserCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                    ToolTip="Dostępne tylko dla kont nieaktywnych" />
+
+            <TextBlock Text="Reset hasła" FontWeight="Bold" Margin="0,20,0,6" />
+            <PasswordBox x:Name="ResetPasswordBox" Margin="0,0,0,6" Padding="4" />
+            <Button Content="Ustaw nowe hasło" Padding="10,4" Click="ResetPasswordButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
