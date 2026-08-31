@@ -176,6 +176,10 @@ Przy pierwszym uruchomieniu tworzone jest konto administratora (login
 `admin`), z hasłem pokazanym jednorazowo w oknie komunikatu — zalecana zmiana
 hasła po pierwszym zalogowaniu.
 
+Opcjonalny skrót na pulpicie (zaznaczany w kreatorze instalacji) trafia na
+pulpit bieżącego użytkownika, więc działa poprawnie także bez uprawnień
+administratora.
+
 ## Licencja
 
 Projekt jest udostępniony na licencji [MIT](LICENSE).

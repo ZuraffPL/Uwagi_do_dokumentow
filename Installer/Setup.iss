@@ -52,7 +52,10 @@ Source: "{#MyPublishDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdi
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{group}\Odinstaluj {#MyAppName}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+; {autodesktop} zamiast {commondesktop} -- przy PrivilegesRequired=lowest zwykly
+; uzytkownik nie ma prawa zapisu do wspolnego pulpitu (Users\Public\Desktop),
+; co powodowalo blad IPersistFile::Save 0x80070005 (Odmowa dostepu).
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "Uruchom {#MyAppName}"; Flags: nowait postinstall skipifsilent
