@@ -20,6 +20,7 @@ logu aktywności.
 - [Uruchamianie w trybie deweloperskim](#uruchamianie-w-trybie-deweloperskim)
 - [Budowanie instalatora](#budowanie-instalatora)
 - [Instalacja (użytkownik końcowy)](#instalacja-użytkownik-końcowy)
+- [Historia wersji](#historia-wersji)
 - [Licencja](#licencja)
 
 ## Funkcjonalności
@@ -52,8 +53,9 @@ logu aktywności.
 - **Panel administracyjny** — zarządzanie użytkownikami, słownikiem symboli
   dokumentów (`document_types`) i przegląd logu aktywności — dostępne tylko
   dla kont z flagą administratora.
-- **Ekran "O programie" i "Pomoc"** — wersja aplikacji, autor, stos
-  technologiczny oraz statyczna instrukcja obsługi dostępne z poziomu menu.
+- **Ekran "O programie", "Pomoc" i "Historia wersji"** — wersja aplikacji,
+  autor, stos technologiczny, statyczna instrukcja obsługi oraz lista zmian
+  w kolejnych wersjach, dostępne z poziomu menu.
 
 ## Stack technologiczny
 
@@ -179,6 +181,24 @@ hasła po pierwszym zalogowaniu.
 Opcjonalny skrót na pulpicie (zaznaczany w kreatorze instalacji) trafia na
 pulpit bieżącego użytkownika, więc działa poprawnie także bez uprawnień
 administratora.
+
+## Historia wersji
+
+Pełna lista zmian jest dostępna w aplikacji (menu „Historia wersji”).
+
+### 1.1.4 — 2026-10-27
+- Nowa pozycja menu „Historia wersji” z listą zmian w kolejnych wersjach.
+- Aktualizacja bibliotek: .NET/EF Core 10.0.14, QuestPDF 2026.9.1,
+  SQLitePCLRaw 3.0.5.
+
+### 1.1.3 — 2026-08-31
+- Naprawa skrótu na pulpicie tworzonego przez instalator (pulpit bieżącego
+  użytkownika zamiast wspólnego).
+
+### 1.1.2 — 2026-08-19
+- Pierwsza wersja w repozytorium: logowanie i uprawnienia, lista uwag
+  z filtrowaniem, załączniki, archiwizacja, historia zmian rekordu, PDF,
+  panel administracyjny, log aktywności, eksport/import bazy.
 
 ## Licencja
 

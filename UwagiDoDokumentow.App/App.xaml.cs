@@ -36,6 +36,12 @@ public partial class App : System.Windows.Application
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
         QuestPDF.Settings.License = LicenseType.Community;
+        // QuestPDF 2026.9+ zmienił domyślne zarządzanie fontami (domyślnie wyłącza fonty systemowe
+        // i rzuca wyjątkiem przy brakujących fontach/glifach). Przywracamy poprzednie zachowanie,
+        // bo aplikacja nie osadza własnych fontów, tylko korzysta z fontów systemowych Windows.
+        QuestPDF.Settings.UseSystemFonts = true;
+        QuestPDF.Settings.ThrowOnMissingFontFamilies = false;
+        QuestPDF.Settings.ThrowOnMissingTextGlyphs = false;
 
         _host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
             .ConfigureServices((_, services) => ConfigureServices(services))
@@ -161,6 +167,7 @@ public partial class App : System.Windows.Application
         services.AddTransient<DocumentTypesAdminViewModel>();
         services.AddTransient<ActivityLogViewModel>();
         services.AddTransient<AboutViewModel>();
+        services.AddTransient<VersionHistoryViewModel>();
 
         services.AddTransient<LoginWindow>();
         services.AddTransient<ShellWindow>();
@@ -173,6 +180,7 @@ public partial class App : System.Windows.Application
         services.AddTransient<ActivityLogView>();
         services.AddTransient<AboutWindow>();
         services.AddTransient<HelpWindow>();
+        services.AddTransient<VersionHistoryWindow>();
     }
 }
 

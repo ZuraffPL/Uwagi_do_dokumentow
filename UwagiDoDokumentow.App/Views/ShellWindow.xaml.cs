@@ -26,6 +26,7 @@ public partial class ShellWindow : Window
         viewModel.ImportDatabaseRequested += (_, _) => ImportDatabase(backupService, currentUser);
         viewModel.OpenAboutRequested += (_, _) => OpenChildWindow<Views.AboutWindow>();
         viewModel.OpenHelpRequested += (_, _) => OpenChildWindow<Views.HelpWindow>();
+        viewModel.OpenVersionHistoryRequested += (_, _) => OpenChildWindow<Views.VersionHistoryWindow>();
         viewModel.LogoutRequested += (_, _) =>
         {
             _isLoggingOut = true;

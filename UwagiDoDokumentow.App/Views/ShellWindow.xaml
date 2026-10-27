@@ -20,6 +20,7 @@
             <MenuItem Header="Pomoc">
                 <MenuItem Header="Instrukcja obsługi" Command="{Binding OpenHelpCommand}" />
             </MenuItem>
+            <MenuItem Header="Historia wersji" Command="{Binding OpenVersionHistoryCommand}" />
             <MenuItem Header="O programie" Command="{Binding OpenAboutCommand}" />
         </Menu>
 

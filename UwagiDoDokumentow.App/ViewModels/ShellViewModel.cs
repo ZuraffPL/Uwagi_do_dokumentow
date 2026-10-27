@@ -38,6 +38,7 @@ public partial class ShellViewModel : ObservableObject
     public event EventHandler? ImportDatabaseRequested;
     public event EventHandler? OpenAboutRequested;
     public event EventHandler? OpenHelpRequested;
+    public event EventHandler? OpenVersionHistoryRequested;
     public event EventHandler? LogoutRequested;
 
     [RelayCommand]
@@ -60,6 +61,9 @@ public partial class ShellViewModel : ObservableObject
 
     [RelayCommand]
     private void OpenHelp() => OpenHelpRequested?.Invoke(this, EventArgs.Empty);
+
+    [RelayCommand]
+    private void OpenVersionHistory() => OpenVersionHistoryRequested?.Invoke(this, EventArgs.Empty);
 
     [RelayCommand]
     private void Logout()
